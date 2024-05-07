@@ -28,10 +28,14 @@ type CotacaoDTO struct {
 	CreateDate string `json:"create_date"`
 }
 
-type CotacaoResponse struct {
+type BidResponse struct {
 	Bid string `json:"bid"`
 }
 
 type CotacaoRepository interface {
 	Create(cotacao *Cotacao) error
+}
+
+type CotacaoAPI interface {
+	GetCotacaoAPI() (*CotacaoDTO, error)
 }

@@ -3,44 +3,42 @@ package db
 import (
 	"github.com/jmoiron/sqlx"
 	_ "github.com/mattn/go-sqlite3"
+	"log"
 )
 
-type connDB struct {
+type ConnDB struct {
 	DB *sqlx.DB
 }
 
-func (c *connDB) Close() {
+func (c *ConnDB) Close() {
 	c.DB.Close()
 }
 
-func NewConnectDB() (*connDB, error) {
-	db, err := sqlx.Open("sqlite3", "data.db")
+func NewConnectDB() (*ConnDB, error) {
+	db, err := sqlx.Connect("sqlite3", "cotacoes.db")
 	if err != nil {
-		return nil, err
+		log.Fatalln("Erro ao conectar ao banco de dados:", err)
 	}
 	defer db.Close()
 
-	stmt, err := db.Prepare("CREATE TABLE IF NOT EXISTS cotacao (" +
-		"id INTEGER PRIMARY KEY, " +
-		"code TEXT,codein TEXT, " +
-		"name TEXT, " +
-		"high TEXT, " +
-		"low TEXT, " +
-		"varbid TEXT, " +
-		"pctchange TEXT, " +
-		"bid TEXT, " +
-		"ask TEXT, " +
-		"timestamp TEXT, " +
-		"createdate TEXT)")
+	criarTabela := `CREATE TABLE IF NOT EXISTS cotacao (
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			code TEXT,
+			codein TEXT,
+			name TEXT,
+			high TEXT,
+			low TEXT,
+			var_bid TEXT,
+			pct_change TEXT,
+			bid TEXT,
+			ask TEXT,
+			timestamp TEXT,
+			create_date TEXT
+		);`
+	_, err = db.Exec(criarTabela)
 	if err != nil {
-		return nil, err
-	}
-	defer stmt.Close()
-
-	_, err = stmt.Exec()
-	if err != nil {
-		return nil, err
+		log.Fatalln("Erro ao criar a tabela:", err)
 	}
 
-	return &connDB{DB: db}, nil
+	return &ConnDB{DB: db}, nil
 }
