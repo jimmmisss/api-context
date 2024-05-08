@@ -9,7 +9,6 @@ import (
 )
 
 func main() {
-
 	conn, err := db.NewConnectDB()
 	if err != nil {
 		panic(err)

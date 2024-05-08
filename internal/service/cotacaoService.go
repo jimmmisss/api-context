@@ -2,14 +2,15 @@ package service
 
 import (
 	"api-context/internal/model"
+	"api-context/internal/port"
 )
 
 type CotacaoService struct {
-	repository model.CotacaoRepository
-	apiService model.CotacaoAPI
+	repository *port.CotacaoRepository
+	apiService *port.CotacaoAPIService
 }
 
-func NewCotacaoService(repository model.CotacaoRepository, apiRepository model.CotacaoAPI) *CotacaoService {
+func NewCotacaoService(repository *port.CotacaoRepository, apiRepository *port.CotacaoAPIService) *CotacaoService {
 	return &CotacaoService{
 		repository: repository,
 		apiService: apiRepository,
@@ -23,17 +24,17 @@ func (c *CotacaoService) ObtemCotacaoESalva() (*model.BidResponse, error) {
 	}
 
 	cotacao := &model.Cotacao{
-		Code:       cotacaoDTO.Code,
-		Codein:     cotacaoDTO.Codein,
-		Name:       cotacaoDTO.Name,
-		High:       cotacaoDTO.High,
-		Low:        cotacaoDTO.Low,
-		VarBid:     cotacaoDTO.VarBid,
-		PctChange:  cotacaoDTO.PctChange,
-		Bid:        cotacaoDTO.Bid,
-		Ask:        cotacaoDTO.Ask,
-		Timestamp:  cotacaoDTO.Timestamp,
-		CreateDate: cotacaoDTO.CreateDate,
+		Code:       cotacaoDTO.USDBRL.Code,
+		Codein:     cotacaoDTO.USDBRL.Codein,
+		Name:       cotacaoDTO.USDBRL.Name,
+		High:       cotacaoDTO.USDBRL.High,
+		Low:        cotacaoDTO.USDBRL.Low,
+		VarBid:     cotacaoDTO.USDBRL.VarBid,
+		PctChange:  cotacaoDTO.USDBRL.PctChange,
+		Bid:        cotacaoDTO.USDBRL.Bid,
+		Ask:        cotacaoDTO.USDBRL.Ask,
+		Timestamp:  cotacaoDTO.USDBRL.Timestamp,
+		CreateDate: cotacaoDTO.USDBRL.CreateDate,
 	}
 
 	err = c.repository.Create(cotacao)
@@ -42,7 +43,7 @@ func (c *CotacaoService) ObtemCotacaoESalva() (*model.BidResponse, error) {
 	}
 
 	bid := &model.BidResponse{
-		Bid: cotacaoDTO.Bid,
+		Bid: cotacaoDTO.USDBRL.Bid,
 	}
 
 	return bid, nil

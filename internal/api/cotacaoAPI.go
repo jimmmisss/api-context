@@ -2,25 +2,28 @@ package api
 
 import (
 	"api-context/internal/model"
+	"api-context/internal/port"
 	"context"
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 	"time"
 )
 
 type CotacaoAPI struct {
+	api *port.CotacaoAPIService
 }
 
-func NewCotacaoAPI() *CotacaoAPI {
-	return &CotacaoAPI{}
+func NewCotacaoAPI(api *port.CotacaoAPIService) *CotacaoAPI {
+	return &CotacaoAPI{api: api}
 }
 
 func (c *CotacaoAPI) GetCotacaoAPI() (*model.CotacaoDTO, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 200*time.Millisecond)
 	defer cancel()
 
-	url := "https://economia.awesomeapi.com.br/json/USD-BRL"
+	url := "https://economia.awesomeapi.com.br/json/last/USD-BRL"
 	cotacao, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
 		panic(err)
@@ -37,11 +40,12 @@ func (c *CotacaoAPI) GetCotacaoAPI() (*model.CotacaoDTO, error) {
 		panic(err)
 	}
 
-	var cotacaoDTO []model.CotacaoDTO
+	var cotacaoDTO model.CotacaoDTO
 	err = json.Unmarshal(body, &cotacaoDTO)
 	if err != nil {
 		panic(err)
 	}
+	fmt.Println(cotacaoDTO)
 
-	return &cotacaoDTO[0], nil
+	return &cotacaoDTO, nil
 }
