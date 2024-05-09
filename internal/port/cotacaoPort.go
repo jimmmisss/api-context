@@ -2,10 +2,14 @@ package port
 
 import "api-context/internal/model"
 
-type CotacaoRepository interface {
+type CotacaoRepositoryInterface interface {
 	Create(cotacao *model.Cotacao) error
 }
 
-type CotacaoAPIService interface {
+type CotacaoAPIInterface interface {
 	GetCotacaoAPI() (*model.CotacaoDTO, error)
+}
+
+type CotacaoServiceInterface interface {
+	ObtemCotacaoESalva() (*model.BidResponse, error)
 }

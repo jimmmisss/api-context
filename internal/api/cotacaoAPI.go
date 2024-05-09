@@ -2,7 +2,6 @@ package api
 
 import (
 	"api-context/internal/model"
-	"api-context/internal/port"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -11,12 +10,10 @@ import (
 	"time"
 )
 
-type CotacaoAPI struct {
-	api *port.CotacaoAPIService
-}
+type CotacaoAPI struct{}
 
-func NewCotacaoAPI(api *port.CotacaoAPIService) *CotacaoAPI {
-	return &CotacaoAPI{api: api}
+func NewCotacaoAPI() *CotacaoAPI {
+	return &CotacaoAPI{}
 }
 
 func (c *CotacaoAPI) GetCotacaoAPI() (*model.CotacaoDTO, error) {

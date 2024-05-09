@@ -6,11 +6,11 @@ import (
 )
 
 type CotacaoService struct {
-	repository *port.CotacaoRepository
-	apiService *port.CotacaoAPIService
+	repository port.CotacaoRepositoryInterface
+	apiService port.CotacaoAPIInterface
 }
 
-func NewCotacaoService(repository *port.CotacaoRepository, apiRepository *port.CotacaoAPIService) *CotacaoService {
+func NewCotacaoService(repository port.CotacaoRepositoryInterface, apiRepository port.CotacaoAPIInterface) *CotacaoService {
 	return &CotacaoService{
 		repository: repository,
 		apiService: apiRepository,
