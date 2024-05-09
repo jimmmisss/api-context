@@ -19,9 +19,8 @@ func NewConnectDB() (*ConnDB, error) {
 	if err != nil {
 		log.Fatalln("Erro ao conectar ao banco de dados:", err)
 	}
-	defer db.Close()
 
-	criarTabela := `CREATE TABLE IF NOT EXISTS cotacao (
+	criarTabela := `CREATE TABLE IF NOT EXISTS cotacoes (
 			id INTEGER PRIMARY KEY AUTOINCREMENT,
 			code TEXT,
 			codein TEXT,
