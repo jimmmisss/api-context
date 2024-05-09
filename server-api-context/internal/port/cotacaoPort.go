@@ -1,6 +1,6 @@
 package port
 
-import "api-context/internal/model"
+import "github.com/jimmmisss/server-api-context/internal/model"
 
 type CotacaoRepositoryInterface interface {
 	Create(cotacao *model.Cotacao) error

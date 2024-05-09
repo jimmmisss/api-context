@@ -1,10 +1,9 @@
 package api
 
 import (
-	"api-context/internal/model"
 	"context"
 	"encoding/json"
-	"fmt"
+	"github.com/jimmmisss/server-api-context/internal/model"
 	"io"
 	"net/http"
 	"time"
@@ -42,7 +41,6 @@ func (c *CotacaoAPI) GetCotacaoAPI() (*model.CotacaoDTO, error) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(cotacaoDTO)
 
 	return &cotacaoDTO, nil
 }

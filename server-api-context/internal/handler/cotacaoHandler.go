@@ -1,8 +1,8 @@
 package handler
 
 import (
-	"api-context/internal/service"
 	"encoding/json"
+	"github.com/jimmmisss/server-api-context/internal/service"
 	"net/http"
 )
 

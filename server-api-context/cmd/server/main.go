@@ -1,10 +1,11 @@
 package main
 
 import (
-	"api-context/internal/api"
-	"api-context/internal/db"
-	"api-context/internal/handler"
-	"api-context/internal/service"
+	"github.com/jimmmisss/server-api-context/internal/api"
+	"github.com/jimmmisss/server-api-context/internal/db"
+	"github.com/jimmmisss/server-api-context/internal/handler"
+	"github.com/jimmmisss/server-api-context/internal/repository"
+	"github.com/jimmmisss/server-api-context/internal/service"
 	"net/http"
 )
 
@@ -15,7 +16,7 @@ func main() {
 	}
 	defer conn.Close()
 
-	repository := db.NewCotacaoRepository(conn.DB)
+	repository := repository.NewCotacaoRepository(conn.DB)
 	apiService := api.NewCotacaoAPI()
 	svc := service.NewCotacaoService(repository, apiService)
 	controller := handler.NewCotacaoHandler(svc)

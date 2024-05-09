@@ -1,8 +1,8 @@
 package service
 
 import (
-	"api-context/internal/model"
-	"api-context/internal/port"
+	"github.com/jimmmisss/server-api-context/internal/model"
+	"github.com/jimmmisss/server-api-context/internal/port"
 )
 
 type CotacaoService struct {

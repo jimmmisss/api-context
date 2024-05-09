@@ -1,4 +1,4 @@
-module api-context
+module github.com/jimmmisss/server-api-context
 
 go 1.22
 
