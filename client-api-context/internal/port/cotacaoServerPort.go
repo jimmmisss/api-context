@@ -9,3 +9,7 @@ type CotacaoAPIInterface interface {
 type CotacaoCriaArquivoInterface interface {
 	GeraArquivoTxt(cotacao *model.Bid) error
 }
+
+type CotacaoServiceInterface interface {
+	CotacaoUSDBRLService() (*model.Bid, error)
+}
