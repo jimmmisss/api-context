@@ -10,7 +10,9 @@ type CotacaoService struct {
 	apiService port.CotacaoAPIInterface
 }
 
-func NewCotacaoService(repository port.CotacaoRepositoryInterface, apiRepository port.CotacaoAPIInterface) *CotacaoService {
+func NewCotacaoService(
+	repository port.CotacaoRepositoryInterface,
+	apiRepository port.CotacaoAPIInterface) *CotacaoService {
 	return &CotacaoService{
 		repository: repository,
 		apiService: apiRepository,

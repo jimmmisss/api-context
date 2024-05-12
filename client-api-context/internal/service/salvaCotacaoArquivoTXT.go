@@ -21,7 +21,7 @@ func (g *GeraArquivoTxtService) GeraArquivoTxt(cotacao *model.Bid) error {
 	}
 	defer file.Close()
 
-	text := fmt.Sprintf("Bid do dolar: %s", cotacao.Bid)
+	text := fmt.Sprintf("Bid do dolar: %s\n", cotacao.Bid)
 	_, err = file.WriteString(text)
 	if err != nil {
 		log.Println("Erro ao escrever no arquivo:", err)

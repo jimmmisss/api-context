@@ -1,16 +1,18 @@
 package service
 
 import (
-	"github.com/jimmmisss/client-api-context/internal/api"
 	"github.com/jimmmisss/client-api-context/internal/model"
+	"github.com/jimmmisss/client-api-context/internal/port"
 )
 
 type CotacaoServerService struct {
-	api     api.CotacaoAPIServer
-	geraTxt GeraArquivoTxtService
+	api     port.CotacaoAPIInterface
+	geraTxt port.CotacaoCriaArquivoInterface
 }
 
-func NewCotacaoServerService(api api.CotacaoAPIServer, geraTxt GeraArquivoTxtService) *CotacaoServerService {
+func NewCotacaoServerService(
+	api port.CotacaoAPIInterface,
+	geraTxt port.CotacaoCriaArquivoInterface) *CotacaoServerService {
 	return &CotacaoServerService{api: api, geraTxt: geraTxt}
 }
 
