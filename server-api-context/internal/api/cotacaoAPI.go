@@ -5,15 +5,12 @@ import (
 	"encoding/json"
 	"github.com/jimmmisss/server-api-context/internal/model"
 	"io"
+	"log"
 	"net/http"
 	"time"
 )
 
 type CotacaoAPI struct{}
-
-func NewCotacaoAPI() *CotacaoAPI {
-	return &CotacaoAPI{}
-}
 
 func (c *CotacaoAPI) GetCotacaoAPI() (*model.CotacaoDTO, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 200*time.Millisecond)
@@ -27,6 +24,7 @@ func (c *CotacaoAPI) GetCotacaoAPI() (*model.CotacaoDTO, error) {
 
 	res, err := http.DefaultClient.Do(cotacao)
 	if err != nil {
+		log.Println("================== Erro na API - CotacaoAPI ", err.Error())
 		panic(err)
 	}
 	defer res.Body.Close()

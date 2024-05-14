@@ -3,25 +3,18 @@ package service
 import (
 	"github.com/jimmmisss/server-api-context/internal/model"
 	"github.com/jimmmisss/server-api-context/internal/port"
+	"log"
 )
 
 type CotacaoService struct {
-	repository port.CotacaoRepositoryInterface
-	apiService port.CotacaoAPIInterface
+	Repo port.CotacaoRepositoryInterface
+	Api  port.CotacaoAPIInterface
 }
 
-func NewCotacaoService(
-	repository port.CotacaoRepositoryInterface,
-	apiRepository port.CotacaoAPIInterface) *CotacaoService {
-	return &CotacaoService{
-		repository: repository,
-		apiService: apiRepository,
-	}
-}
-
-func (c *CotacaoService) ObtemCotacaoESalva() (*model.BidResponse, error) {
-	cotacaoDTO, err := c.apiService.GetCotacaoAPI()
+func (c *CotacaoService) ObtemCotacaoViaApiSalva() (*model.BidResponse, error) {
+	cotacaoDTO, err := c.Api.GetCotacaoAPI()
 	if err != nil {
+		log.Printf("================== ERRO NA API - ObtemCotacaoViaApiSalva: %v", err)
 		return nil, err
 	}
 
@@ -39,8 +32,9 @@ func (c *CotacaoService) ObtemCotacaoESalva() (*model.BidResponse, error) {
 		CreateDate: cotacaoDTO.USDBRL.CreateDate,
 	}
 
-	err = c.repository.Create(cotacao)
+	err = c.Repo.Create(cotacao)
 	if err != nil {
+		log.Printf("================== ERRO NO REPO - ObtemCotacaoViaApiSalva - Create: %v", err)
 		return nil, err
 	}
 
