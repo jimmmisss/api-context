@@ -2,13 +2,21 @@ package handler
 
 import (
 	"encoding/json"
-	"github.com/jimmmisss/server-api-context/internal/port"
+	"github.com/jimmmisss/server-api-context/internal/model"
 	"log"
 	"net/http"
 )
 
+type CotacaoServiceInterface interface {
+	ObtemCotacaoViaApiSalva() (*model.BidResponse, error)
+}
+
 type CotacaoHandler struct {
-	Service port.CotacaoServiceInterface
+	Service CotacaoServiceInterface
+}
+
+func NewCotacaoHandler(service CotacaoServiceInterface) *CotacaoHandler {
+	return &CotacaoHandler{Service: service}
 }
 
 func (c *CotacaoHandler) CotacaoHandler(w http.ResponseWriter, r *http.Request) {

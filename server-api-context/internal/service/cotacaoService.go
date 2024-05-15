@@ -2,13 +2,27 @@ package service
 
 import (
 	"github.com/jimmmisss/server-api-context/internal/model"
-	"github.com/jimmmisss/server-api-context/internal/port"
 	"log"
 )
 
+type CotacaoRepositoryInterface interface {
+	Create(cotacao *model.Cotacao) error
+}
+
+type CotacaoAPIInterface interface {
+	GetCotacaoAPI() (*model.CotacaoDTO, error)
+}
+
 type CotacaoService struct {
-	Repo port.CotacaoRepositoryInterface
-	Api  port.CotacaoAPIInterface
+	Repo CotacaoRepositoryInterface
+	Api  CotacaoAPIInterface
+}
+
+func NewCotacaoService(repo CotacaoRepositoryInterface, api CotacaoAPIInterface) *CotacaoService {
+	return &CotacaoService{
+		Repo: repo,
+		Api:  api,
+	}
 }
 
 func (c *CotacaoService) ObtemCotacaoViaApiSalva() (*model.BidResponse, error) {

@@ -12,6 +12,10 @@ import (
 
 type CotacaoAPI struct{}
 
+func NewCotacaoAPI() *CotacaoAPI {
+	return &CotacaoAPI{}
+}
+
 func (c *CotacaoAPI) GetCotacaoAPI() (*model.CotacaoDTO, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 200*time.Millisecond)
 	defer cancel()
